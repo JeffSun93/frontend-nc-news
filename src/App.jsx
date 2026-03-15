@@ -7,8 +7,6 @@ import Articles from "./features/articles/routes/Articles.jsx";
 import Article from "./features/articles/routes/Article.jsx";
 import { CurrentUserProvider } from "./features/user/CurrentUser.jsx";
 
-import "./App.css";
-
 axios.defaults.baseURL = "https://jeff-nc-news.onrender.com";
 
 function App() {

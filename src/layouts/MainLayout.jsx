@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 const MainLayout = (props) => {
   const { children } = props;
   return (
-    <div className="App">
+    <div className="grid grid-rows-[min-content_auto_auto] grid-cols-1 max-w-7xl mx-auto p-8">
       <Header />
       <Nav />
       <main>{children}</main>
