@@ -10,24 +10,25 @@ const Header = () => {
   };
 
   return (
-    <header
-      className="bg-gradient-to-r from-blue-100 to-blue-200 
-  border-2 border-blue-700 
-  rounded-xl 
-  p-4 md:px-8 md:py-6 
-  shadow-md 
-  hover:from-blue-200 hover:to-blue-300 
-  active:translate-y-0.5 active:shadow-sm
-  transition-all duration-200"
-    >
-      <p>{currentUser}</p>
-      <button
-        onClick={() => {
-          logUser(currentUser);
-        }}
-      >
-        {currentUser ? "signout" : "login"}
-      </button>
+    <header className="pt-10 pb-6 animate-rise">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-[#0a7f78] tracking-[0.1em] text-[0.78rem] font-bold uppercase mb-1">
+            NC News
+          </p>
+          <p className="text-[#4d5d69] text-sm">
+            {currentUser ? `Logged in as ${currentUser}` : "Not logged in"}
+          </p>
+        </div>
+        <button
+          onClick={() => {
+            logUser(currentUser);
+          }}
+          className="text-sm font-semibold text-[#0a7f78] hover:underline transition-colors duration-200"
+        >
+          {currentUser ? "Sign out" : "Login"}
+        </button>
+      </div>
     </header>
   );
 };

@@ -18,12 +18,15 @@ const CommentsView = ({ article_id }) => {
       });
   }, []);
   return (
-    <ul>
-      {comments &&
-        comments.map((comment, index) => {
-          return <CommentCard key={index} comment={comment} />;
-        })}
-    </ul>
+    <section className="mt-8">
+      <h2 className="text-[1.6rem] font-bold text-[#0f3b5f] mb-4">Comments</h2>
+      <ul className="flex flex-col gap-3">
+        {comments &&
+          comments.map((comment, index) => {
+            return <CommentCard key={index} comment={comment} />;
+          })}
+      </ul>
+    </section>
   );
 };
 export default CommentsView;

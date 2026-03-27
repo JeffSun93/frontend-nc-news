@@ -1,30 +1,35 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 import ArticleCard from "./ArticleCard.jsx";
 
 const ArticlesView = () => {
-  const [articles, setArticles] = useState([
-    { title: "abc", author: "aidjfwe", topic: "sd" },
-    { title: "bcd", body: "asdfadsf" },
-  ]);
+  const [articles, setArticles] = useState([]);
+  const [searchParams] = useSearchParams();
+  const topic = searchParams.get("topic");
 
   useEffect(() => {
     axios
-      .get("/api/articles")
+      .get("/api/articles", {
+        params: topic ? { topic } : {},
+      })
       .then(({ data }) => {
         return data;
       })
       .then(({ articles }) => {
         setArticles(articles);
       });
-  }, []);
+  }, [topic]);
 
   return (
     <>
-      <ul>
+      <h2 className="text-[1.6rem] font-bold text-[#0f3b5f] mb-6 capitalize">
+        {topic ? `${topic} articles` : "All articles"}
+      </h2>
+      <ul className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
         {articles &&
-          articles.map((article, index) => (
-            <ArticleCard key={index} article={article} />
+          articles.map((article) => (
+            <ArticleCard key={article.article_id} article={article} />
           ))}
       </ul>
     </>

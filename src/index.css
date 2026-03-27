@@ -1,1 +1,41 @@
 @import "tailwindcss";
+
+:root {
+  --bg: #f8f5ef;
+  --text: #112230;
+  --muted: #4d5d69;
+  --surface: rgba(255, 255, 255, 0.84);
+  --line: rgba(17, 34, 48, 0.12);
+  --navy: #0f3b5f;
+  --teal: #0a7f78;
+  --amber: #bb7a13;
+  --rose: #a23357;
+  --shadow: 0 12px 32px rgba(15, 35, 53, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.55;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: rise 0.45s ease-out;
+}
