@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import VoteControll from "./VoteControll";
+import { VoteControll } from "./VoteControll";
 
 const ArticleView = ({ article_id }) => {
   const [article, setArticle] = useState("null");

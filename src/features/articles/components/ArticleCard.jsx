@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { convertToRelativeTime } from "../utils/timeConverter.js";
+import { VoteControll } from "./VoteControll.jsx";
+import { voteArticle } from "../apis/articles.js";
 
 const ArticleCard = (props) => {
   const { article } = props;
@@ -13,6 +16,31 @@ const ArticleCard = (props) => {
     created_at,
     article_img_url,
   } = article;
+  const [currentVotes, setVotes] = useState(votes);
+  const blockLinkNavigation = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  const handleVote = async () => {
+    if (currentVotes > votes) {
+      try {
+        setVotes((vote) => vote - 1);
+        const result = await voteArticle(article_id, -1);
+        console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
+      return;
+    }
+    try {
+      setVotes((vote) => vote + 1);
+      const result = await voteArticle(article_id, 1);
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <li className="bg-white/[0.84] border border-[rgba(17,34,48,0.12)] rounded-2xl p-5 shadow-[0_12px_32px_rgba(15,35,53,0.12)] animate-rise overflow-hidden">
       <Link to={`/articles/${article_id}`} className="block space-y-4">
@@ -41,10 +69,15 @@ const ArticleCard = (props) => {
               {convertToRelativeTime(created_at)}
             </p>
           </div>
-          <div className="flex items-center gap-3 pt-3 border-t border-[rgba(17,34,48,0.08)]">
-            <span className="inline-flex items-center gap-1.5 bg-[rgba(10,127,120,0.1)] text-[#0a7f78] px-3 py-1.5 rounded-lg text-xs font-semibold flex-1 justify-center">
-              👍 {votes}
-            </span>
+          <div
+            className="flex items-center gap-3 pt-3 border-t border-[rgba(17,34,48,0.08)]"
+            onClick={blockLinkNavigation}
+          >
+            <VoteControll
+              onVote={handleVote}
+              className="flex-1"
+              currentVote={currentVotes}
+            />
             <span className="inline-flex items-center gap-1.5 bg-[rgba(187,122,19,0.1)] text-[#bb7a13] px-3 py-1.5 rounded-lg text-xs font-semibold flex-1 justify-center">
               💬 {comment_count}
             </span>
