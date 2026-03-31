@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { VoteControll } from "./VoteControll";
 import { voteArticle } from "../apis/articles";
 import { convertToRelativeTime } from "../utils/timeConverter";
+import AuthorModal from "../../user/components/AuthorModal";
 
 const SingleArticleCard = ({ article }) => {
   const {
@@ -17,6 +19,7 @@ const SingleArticleCard = ({ article }) => {
   } = article;
 
   const [currentVotes, setVotes] = useState(votes);
+  const [isAuthorModalOpen, setIsAuthorModalOpen] = useState(false);
 
   const handleVote = async () => {
     if (currentVotes > votes) {
@@ -38,16 +41,19 @@ const SingleArticleCard = ({ article }) => {
 
   return (
     <div className="mt-6 animate-rise bg-white/[0.84] border border-[rgba(17,34,48,0.12)] rounded-2xl p-6 shadow-[0_12px_32px_rgba(15,35,53,0.12)]">
-      <p className="text-[#0a7f78] text-[0.78rem] font-bold uppercase tracking-[0.1em] mb-2 capitalize">
+      <Link to={`/articles?topic=${topic}`} className="text-[#0a7f78] text-[0.78rem] font-bold uppercase tracking-[0.1em] mb-2 capitalize inline-block hover:underline">
         {topic}
-      </p>
+      </Link>
       <h1 className="text-[clamp(1.6rem,3vw,2.4rem)] font-bold leading-snug text-[#0f3b5f] mb-3">
         {title}
       </h1>
       <div className="flex items-center gap-3 mb-4 text-sm text-[#4d5d69]">
-        <span className="font-semibold text-[#0f3b5f] bg-[rgba(10,127,120,0.12)] px-3 py-1.5 rounded-lg">
+        <button
+          onClick={() => setIsAuthorModalOpen(true)}
+          className="font-semibold text-[#0f3b5f] bg-[rgba(10,127,120,0.12)] px-3 py-1.5 rounded-lg hover:bg-[rgba(10,127,120,0.22)] transition-colors duration-150"
+        >
           {author}
-        </span>
+        </button>
         <span>{convertToRelativeTime(created_at)}</span>
       </div>
       <img
@@ -62,6 +68,12 @@ const SingleArticleCard = ({ article }) => {
           💬 {comment_count}
         </span>
       </div>
+      {isAuthorModalOpen && (
+        <AuthorModal
+          username={author}
+          onClose={() => setIsAuthorModalOpen(false)}
+        />
+      )}
     </div>
   );
 };
