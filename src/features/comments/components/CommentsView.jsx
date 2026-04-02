@@ -3,7 +3,7 @@ import CommentCard from "./CommentCard";
 import { getCommentsByArticleId, deleteComment, postComment } from "../apis/comments";
 import useUser from "../../user/hooks/useUser";
 
-const CommentsView = ({ article_id }) => {
+const CommentsView = ({ article_id, onCommentAdded, onCommentDeleted }) => {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -40,6 +40,7 @@ const CommentsView = ({ article_id }) => {
 
   const handleDelete = async (comment_id) => {
     setComments((prev) => prev.filter((c) => c.comment_id !== comment_id));
+    onCommentDeleted?.();
     try {
       await deleteComment(comment_id);
     } catch (err) {
@@ -47,6 +48,7 @@ const CommentsView = ({ article_id }) => {
         const restored = comments.find((c) => c.comment_id === comment_id);
         return restored ? [...prev, restored] : prev;
       });
+      onCommentAdded?.();
     }
   };
 
@@ -69,6 +71,7 @@ const CommentsView = ({ article_id }) => {
     try {
       const newComment = await postComment(article_id, currentUser.username, body.trim());
       setComments((prev) => [newComment, ...prev]);
+      onCommentAdded?.();
       handleReset();
     } catch {
       setSubmitError("Failed to post comment. Please try again.");

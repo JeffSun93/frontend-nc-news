@@ -3,7 +3,7 @@ import { getArticleById } from "../apis/articles";
 import SingleArticleCard from "./SingleArticleCard";
 import ArticleViewSkeleton from "./ArticleViewSkeleton";
 
-const ArticleView = ({ article_id }) => {
+const ArticleView = ({ article_id, commentDelta }) => {
   const [article, setArticle] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +30,7 @@ const ArticleView = ({ article_id }) => {
   ) : error ? (
     <p className="mt-6 text-red-500 text-sm">{error}</p>
   ) : (
-    <SingleArticleCard article={article} />
+    <SingleArticleCard article={article} commentDelta={commentDelta} />
   );
 
   return;
