@@ -32,9 +32,9 @@ const CommentCard = ({ comment, isOwn, onDelete }) => {
   };
 
   return (
-    <li className="bg-white/[0.84] border border-[rgba(17,34,48,0.12)] rounded-2xl p-4 shadow-[0_12px_32px_rgba(15,35,53,0.12)] animate-rise">
+    <li className="list-none bg-white/[0.9] border border-[rgba(17,34,48,0.1)] rounded-xl p-3 animate-rise">
       <div className="flex items-center justify-between mb-1">
-        <h2 className="font-bold text-[#0f3b5f] text-sm">
+        <h2 className="font-bold text-[#0f3b5f] text-xs">
           {isOwn ? "Me" : author}
         </h2>
         {isOwn && (
@@ -46,17 +46,17 @@ const CommentCard = ({ comment, isOwn, onDelete }) => {
           </button>
         )}
       </div>
-      <p className="text-[#112230] text-sm leading-relaxed mb-2">{body}</p>
-      <div className="flex items-center justify-between text-xs text-[#4d5d69]">
+      <p className="text-[#112230] text-xs leading-relaxed mb-2">{body}</p>
+      <div className="flex items-center justify-between text-[0.7rem] text-[#4d5d69]">
         <span>{convertToRelativeTime(created_at)}</span>
         <button
           onClick={currentUser ? handleVote : undefined}
-          className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg transition-colors duration-150 font-semibold ${
+          className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md transition-colors duration-150 font-semibold ${
             !currentUser
               ? "!cursor-default bg-[rgba(10,127,120,0.08)] text-[#4d5d69]"
               : hasVoted
-              ? "bg-[rgba(10,127,120,0.2)] text-[#0a7f78]"
-              : "bg-[rgba(10,127,120,0.08)] text-[#4d5d69] hover:bg-[rgba(10,127,120,0.15)]"
+                ? "bg-[rgba(10,127,120,0.2)] text-[#0a7f78]"
+                : "bg-[rgba(10,127,120,0.08)] text-[#4d5d69] hover:bg-[rgba(10,127,120,0.15)]"
           }`}
         >
           👍 {currentVotes}
