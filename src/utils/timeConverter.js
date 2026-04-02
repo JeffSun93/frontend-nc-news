@@ -29,3 +29,7 @@ export const convertToRelativeTime = (date) => {
   const remDays = diffDays - diffYears * 365;
   return `${diffYears}y ${remDays > 0 ? `${remDays}d ` : ""}ago`;
 };
+
+export const convertToAbsoluteTime = (date) => {
+  return dayjs(date).format("MMMM D, YYYY h:mm A");
+};

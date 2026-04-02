@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { convertToRelativeTime } from "../../../utils/timeConverter.js";
-import { VoteControl } from "./VoteControl.jsx";
+import { VoteControll } from "./VoteControll.jsx";
 import { voteArticle } from "../apis/articles.js";
 import UserProfileModal from "../../user/components/UserProfileModal.jsx";
 import useUser from "../../user/hooks/useUser.js";
@@ -22,13 +22,21 @@ const ArticleCard = (props) => {
   const [isAuthorModalOpen, setIsAuthorModalOpen] = useState(false);
   const { currentUser } = useUser();
   const handleVote = async () => {
-    const isUpvoted = currentVotes > votes;
-    const increment = isUpvoted ? -1 : 1;
-    setVotes((v) => v + increment);
+    if (currentVotes > votes) {
+      try {
+        setVotes((vote) => vote - 1);
+        const result = await voteArticle(article_id, -1);
+        console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
+      return;
+    }
     try {
-      await voteArticle(article_id, increment);
+      setVotes((vote) => vote + 1);
+      const result = await voteArticle(article_id, 1);
+      console.log(result);
     } catch (error) {
-      setVotes((v) => v - increment);
       console.error(error);
     }
   };
@@ -67,7 +75,7 @@ const ArticleCard = (props) => {
           </p>
         </div>
         <div className="flex items-center gap-3 pt-3 border-t border-[rgba(17,34,48,0.08)]">
-          <VoteControl
+          <VoteControll
             onVote={handleVote}
             className="flex-1"
             currentVote={currentVotes}

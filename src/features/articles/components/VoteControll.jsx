@@ -1,4 +1,4 @@
-export const VoteControl = ({ onVote, className, currentVote, disabled }) => {
+export const VoteControll = ({ onVote, className, currentVote, disabled }) => {
   return (
     <button
       onClick={disabled ? undefined : onVote}
