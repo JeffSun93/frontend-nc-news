@@ -59,9 +59,12 @@ npm run preview   # preview the production build locally
 ## Key Features
 
 - Browse all articles or filter by topic
+- Sort articles by date, votes, or comment count
 - Read full article with body text and metadata
-- Vote on articles with optimistic UI updates
-- Post and view comments on articles
+- Vote on articles and comments with optimistic UI updates and error rollback
+- Post, view, and delete own comments
+- Comment count updates in real time when comments are added or deleted
+- Scrollable comment section
 - Skeleton loading states throughout
 - Responsive layout
 
@@ -75,13 +78,16 @@ npm run preview   # preview the production build locally
 src/
   features/
     articles/
-      apis/           # Axios API calls
-      components/     # Article, comment, and vote UI components
+      apis/           # Axios API calls for articles
+      components/     # Article UI components (cards, vote control, skeletons)
       routes/         # Page-level route components
-      utils/          # Helpers (e.g. time formatter)
-    user/             # User context and hooks
+    comments/
+      apis/           # Axios API calls for comments
+      components/     # Comment UI components (list, card, form)
+    user/             # User context, hooks, and profile modal
   components/         # Shared UI (Nav, Header, Footer)
   layouts/            # MainLayout wrapper
+  utils/              # Helpers (e.g. time formatter)
   constants.js        # API base URL
   App.jsx             # Route definitions
   main.jsx            # React entry point
