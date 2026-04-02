@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 const fallbackTopics = ["coding", "football", "cooking"];
 
 const Nav = () => {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
   const [topics, setTopics] = useState(fallbackTopics);
   const [isTopicsOpen, setIsTopicsOpen] = useState(false);
   const topicsMenuRef = useRef(null);
@@ -95,7 +95,7 @@ const Nav = () => {
           <button
             className="font-semibold text-[#112230] hover:text-[#0a7f78] transition-colors duration-200"
             onClick={() => {
-              navigator(-1);
+              navigate(-1);
             }}
             type="button"
           >

@@ -39,6 +39,16 @@ function App() {
             </MainLayout>
           }
         />
+        <Route
+          path="*"
+          element={
+            <MainLayout>
+              <p className="mt-16 text-center text-[#4d5d69]">
+                404 — Page not found.
+              </p>
+            </MainLayout>
+          }
+        />
       </Routes>
     </CurrentUserProvider>
   );
