@@ -7,9 +7,13 @@ export const voteArticle = async (article_id, vote) => {
   return data.article;
 };
 
-export const getArticles = async (topic) => {
+export const getArticles = async (topic, sortBy, order) => {
   const { data } = await axios.get("/api/articles", {
-    params: topic ? { topic } : {},
+    params: {
+      ...(topic && { topic }),
+      ...(sortBy && { sort_by: sortBy }),
+      ...(order && { order }),
+    },
   });
   return data.articles;
 };
